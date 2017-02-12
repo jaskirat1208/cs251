@@ -42,3 +42,8 @@ cat("\tMedian: ",Median,"\n")
 
 cat("\tQuantile: \n")
 Quantile
+
+v=1:10000
+plot(density(data1))
+plot(density(data2))
+plot(density(data3))
