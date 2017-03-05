@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[linesnumbered,vlined,ruled]{algorithm2e}
+\usepackage{graphicx}
+\title{An algorithm for multiplying two digit numbers}
+\author{Jaskirat Singh }
+\date{3 March 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+    This is an algorithm for multiplying two digit numbers mentally and within less time.
+    This algorithm considers two specific cases: 
+    \begin{itemize}
+        \item The first digits are same, and the last ones add up to 10
+        \item The last digits are same, and the first ones add up to 10
+    \end{itemize}
+    Ex: %{ \hspace{10mm} %\space 
+    \begin{itemize}
+        \item Case 1:
+            \begin{tabular}{c c c}
+                &6 &4\\
+                x &6 &6 \\
+                \hline
+                & 6(6+1) & 4*6 \\
+                & 42     & 24  \\
+            \end{tabular}
+            \\ Ans: 4224
+        
+        \item Case 2:
+            \begin{tabular}{c c c}
+                &3 &4\\
+                x &7 &4 \\
+                \hline
+                & 3*7+4 & 4*4 \\
+                & 25     & 16  \\
+            \end{tabular}
+            \\
+            \\
+             Ans: 2516            
+    \end{itemize}
+\section{How to mentally implement it ? }
+    Implementation is really simple for these two cases. Just do the following:
+    \begin{itemize}
+        \item Case 1:
+            \begin{itemize}
+                \item First two digits : just add the first digit to its square
+                \item Last two digits  : multiply the last to digits
+            \end{itemize}
+        \item Case 2:
+            \begin{itemize}
+                \item First two digits : multiply the first two digits and add the last digit to the product.
+                \item Last two digits  : just square the last digit
+            \end{itemize}
+        
+    \end{itemize}
+    \floatsep 1cm
+    \includegraphics[width=5cm, height=4cm ]{image} \ \ 
+    \includegraphics[width=5cm, height=4cm]{img2}
+\section{Mathematical Derivation of the algorithm}
+   
+    %Now,
+%    \begin{ams}
+    \begin{proof}
+         Let the numbers be $A$ and $B$  where 
+         $A = 10*a_{1} + a_{2}$ and 
+         $B = 10*b_{1} + b_{2}$     
+         \\
+         \begin{equation}   \label{main}
+             A*B = 100.a_{1}.a_{2}+10.(a_{1}.b_{2}+a_{2}.b_{1}) + b_{1}.b_{2}
+         \end{equation} \\
+         
+        \begin{itemize}
+                 \item  Case 1: $a_{1} = b_{1}$ and $a_{2}+ b_{2}=10$\\ 
+                        \begin{proof}
+                                                    \begin{align*}
+                                a_{1}.b_{2} &+ a_{2}.b_{1} = 10.a_{1} \\
+                                %&& \text{Thus,}
+                                From\  \ref{main},\ \ \ \ \ \ \  &\\
+                                A.B &=100.a_{1}.a_{2}+10.(a_{1}.b_{2}+a_{2}.b_{1}) + b_{1}.b_{2}  \\
+                                &=100.{a_{1}.b_{1}} + 100.a_{1} + a_{2}.b_{2}\\
+                                &=100(a_{1}.b_{1} + a_{1}) + a_{2}.b_{2} \\
+                                &=100.a_{1}.(a_{1} + 1) + a_{2}.b_{2}
+                        \end{align*}
+                        \end{proof}
+                 \item  Case 2: $a_{2} = b_{2}$ and $a_{1}+ b_{1}=10$\\
+                    \begin{proof}    
+                                                \begin{align*}
+                                a_{1}.b_{2} &+ a_{2}.b_{1} = 10.a_{2} \\
+                                %&& \text{Thus,}
+                                From\  \ref{main},\ \ \ \ \ \ \  &\\
+                                A.B &=100.a_{1}.a_{2}+10.(a_{1}.b_{2}+a_{2}.b_{1}) + b_{1}.b_{2}  \\
+                                &=100.{a_{1}.b_{1}} + 100.a_{2} + a_{2}.b_{2}\\
+                                &=100(a_{1}.b_{1} + a_{2}) + a_{2}^2
+                        \end{align*}
+                    \end{proof}    
+        \end{itemize}
+    \end{proof}
+
+\section{Algorithm$\footnote{\label{IMPORTANT NOTE}Note that this algorithm is fast only for these two cases.For other cases,refer the bibliography}$}
+    \begin{algorithm}[]
+        \caption{Multipy 2 two diit numbers A and B}
+        %\label{Algorithm:delete_mCBF_aCBF}
+       $a_{1} $=$ A/10$\\
+       $a_{2} $=$ A \% 10$ \\
+       $b_{1} $=$ B/10$\\
+       $b_{2} $=$ B \% 10$\\
+       \If{$a_{1} = b_{1}$ and $a_{2} +b_{2} =10$}{$left \gets a_{1}(a_{1}+1)$\\
+       $right \gets a_{2}b_{2}$\\
+        print $left$ $right$
+
+       }
+       \ElseIf{$a_{2} = b_{2}$ and $a_{1} +b_{1} =10$}
+        {
+            $left \gets a_{1}.b_{1} + a_{2}$\\
+            $right \gets a_{2}^2$\\
+            print $left$ $right$
+        }
+        
+    \end{algorithm}
+\section{Extension for more numbers}
+    The algorithm that we have studied is valid for two digit numbers only. The next question arises, can we further extend this algo for more than two digits?\par
+    The answer is YES. Analogous to the proof for two digit case, we can get the algorithm for a more than two digit case.But there will be certain restrictions.We would be able to divide the numbers into two smaller parts and then if the conditions apply , we could use that algorithm.For further details, see the bibliography.It will be clear with the following example: 125 * 175 = 21875\\
+    \begin{center}
+        \begin{tabular}{c c c}
+              &1 & 25  \\
+             x&1 & 75  \\
+             \hline
+             &1.(1+1) & 25*75\\
+             &2 &1875
+             
+        \end{tabular}
+    \end{center}
+    Thus, the answer is 21875.\\
+    % \footnote{\label{IMPORTANT NOTE}Note that this algorithm is fast only for these two cases.For other cases,refer the bibliography}
+    
+    All these ideas are not new, but they have their roots in atharvaveda. \\
+    This shows that even in acient period, when the vedas were composed, the people of that time were aware of such techniques.\cite{atharvaveda}
+    %Ex: {Case 2:} \hspace{10mm}%# \space
+    
+    \bibliographystyle{ieeetr}%Used BibTeX style is unsrt
+    \bibliography{citations}
+   
+    %Ex: {Case 2:} \hspace{10mm}%# \space
+    
+
+\end{document}
